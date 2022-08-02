@@ -1,11 +1,20 @@
+import { useState } from "react";
 import "./App.css";
-import logo from "./logo.svg";
+import logo from "./logo.webp";
 
 function App() {
+  const [isRotate, setIsRotate] = useState(false);
   return (
     <div className="App">
       <header className="h-[56px] bg-slate-500 shadow-md flex">
-        <img src={logo} className="h-[55px]" alt="logo" />
+        <div className="flex items-center pl-4">
+          <img
+            src={logo}
+            className={"h-[50px] " + (isRotate ? "rotate-45" : "")}
+            alt="logo"
+            onClick={() => setIsRotate(!isRotate)}
+          />
+        </div>
         <div className=" flex justify-center w-full items-center">
           <span className="text-lg text-white font-bold uppercase">
             Quản lý mạng lưới điện
