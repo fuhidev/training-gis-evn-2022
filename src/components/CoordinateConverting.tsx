@@ -12,6 +12,7 @@ const CoordinateConverting: React.FC<CoordinateConvertingProps> = ({
 }) => {
   const [value, setValue] = useState<string>("");
   useEffect(() => {
+    console.log("effect");
     view.when(() => {
       view.on("pointer-move", async (event) => {
         const mapPoint = view.toMap({ x: event.x, y: event.y });
@@ -36,7 +37,7 @@ const CoordinateConverting: React.FC<CoordinateConvertingProps> = ({
         }
       });
     });
-  }, [view]);
+  }, []);
   return (
     <div className="absolute bottom-5 left-5 bg-white rounded w-[200px]">
       <span>{value}</span>
