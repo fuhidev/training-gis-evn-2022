@@ -11,9 +11,10 @@ interface Props {
 const FeatureTableComponent: React.FC<Props> = ({ view, layer }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [isOpen, setOpen] = useState(true);
+  let featureTable = useRef<FeatureTable>();
   useEffect(() => {
     if (divRef.current) {
-      const featureTable = new FeatureTable({
+      featureTable.current = new FeatureTable({
         container: divRef.current,
         view,
         layer,
@@ -21,11 +22,18 @@ const FeatureTableComponent: React.FC<Props> = ({ view, layer }) => {
 
       view.watch("stationary", (stationary) => {
         if (!stationary) {
-          featureTable.filterGeometry = view.extent;
+          if (featureTable.current)
+            featureTable.current.filterGeometry = view.extent;
         }
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (featureTable.current) {
+      featureTable.current.layer = layer;
+    }
+  }, [layer]);
 
   const toggle = () => {
     setOpen(!isOpen);

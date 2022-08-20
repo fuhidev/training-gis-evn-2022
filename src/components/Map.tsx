@@ -9,6 +9,8 @@ function MapComponent() {
   const mapRef = useRef(null);
   const [mapView, setMapView] = useState<MapView | null>(null);
   const [cotDienLayer, setCotDienlayer] = useState<FeatureLayer | null>(null);
+  const [featureTableLayer, setFeatureTableLayer] =
+    useState<FeatureLayer | null>(null);
   useEffect(() => {
     if (mapRef.current) {
       const map = new Map({
@@ -36,15 +38,21 @@ function MapComponent() {
       });
     }
   }, [mapRef]);
+
+  const openFeatureTable = (layer: FeatureLayer) => {
+    setFeatureTableLayer(layer);
+  };
   return (
     <div className="h-[calc(100vh_-_56px)] w-full relative">
       <div ref={mapRef} className="w-full h-full">
         {mapView && <CoordinateConverting view={mapView} />}
-        {mapView && cotDienLayer && (
-          <FeatureTableComponent view={mapView} layer={cotDienLayer} />
+        {mapView && featureTableLayer && (
+          <FeatureTableComponent view={mapView} layer={featureTableLayer} />
         )}
       </div>
-      {mapView && <PanelContainer view={mapView} />}
+      {mapView && (
+        <PanelContainer view={mapView} openFeatureTable={openFeatureTable} />
+      )}
     </div>
   );
 }

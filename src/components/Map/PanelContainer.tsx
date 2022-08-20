@@ -1,12 +1,14 @@
+import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import MapView from "@arcgis/core/views/MapView";
 import { useState } from "react";
 import LayerListComponent from "./LayerList";
 
 interface Props {
   view: MapView;
+  openFeatureTable: (layer: FeatureLayer) => void;
 }
 
-const PanelContainer: React.FC<Props> = ({ view }) => {
+const PanelContainer: React.FC<Props> = ({ view, openFeatureTable }) => {
   const [isOpenPanel, setIsOpenPanel] = useState(false);
   return (
     <>
@@ -34,7 +36,7 @@ const PanelContainer: React.FC<Props> = ({ view }) => {
           <i className="fa-solid fa-xmark"></i>
         </div>
         <div className="flex-1 h-full">
-          <LayerListComponent view={view} />
+          <LayerListComponent view={view} openFeatureTable={openFeatureTable} />
         </div>
       </div>
     </>
