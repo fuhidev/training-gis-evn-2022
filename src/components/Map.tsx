@@ -4,6 +4,7 @@ import MapView from "@arcgis/core/views/MapView";
 import { useEffect, useRef, useState } from "react";
 import CoordinateConverting from "./CoordinateConverting";
 import FeatureTableComponent from "./Map/FeatureTable";
+import PanelContainer from "./Map/PanelContainer";
 function MapComponent() {
   const mapRef = useRef(null);
   const [mapView, setMapView] = useState<MapView | null>(null);
@@ -31,11 +32,14 @@ function MapComponent() {
     }
   }, [mapRef]);
   return (
-    <div ref={mapRef} className="h-[calc(100vh_-_56px)] w-full">
-      {mapView && <CoordinateConverting view={mapView} />}
-      {mapView && cotDienLayer && (
-        <FeatureTableComponent view={mapView} layer={cotDienLayer} />
-      )}
+    <div className="h-[calc(100vh_-_56px)] w-full relative">
+      <div ref={mapRef} className="w-full h-full">
+        {mapView && <CoordinateConverting view={mapView} />}
+        {mapView && cotDienLayer && (
+          <FeatureTableComponent view={mapView} layer={cotDienLayer} />
+        )}
+      </div>
+      {mapView && <PanelContainer view={mapView} />}
     </div>
   );
 }
