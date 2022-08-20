@@ -1,7 +1,10 @@
 import Point from "@arcgis/core/geometry/Point";
+import Polygon from "@arcgis/core/geometry/Polygon";
+import Polyline from "@arcgis/core/geometry/Polyline";
 import Graphic from "@arcgis/core/Graphic";
 import Map from "@arcgis/core/Map";
 import PopupTemplate from "@arcgis/core/PopupTemplate";
+import SimpleFillSymbol from "@arcgis/core/symbols/SimpleFillSymbol";
 import SimpleLineSymbol from "@arcgis/core/symbols/SimpleLineSymbol";
 import SimpleMarkerSymbol from "@arcgis/core/symbols/SimpleMarkerSymbol";
 import MapView from "@arcgis/core/views/MapView";
@@ -51,6 +54,39 @@ function MapComponent() {
           }),
         });
         mapView.graphics.add(graphic);
+
+        const polyline = new Graphic({
+          symbol: new SimpleLineSymbol({
+            color: "red",
+          }),
+          geometry: new Polyline({
+            paths: [
+              [
+                [108.2214, 16.0704],
+                [108.2214, 16.07],
+              ],
+            ],
+          }),
+        });
+        mapView.graphics.add(polyline);
+
+        const polygon = new Graphic({
+          symbol: new SimpleFillSymbol({
+            color: "yellow",
+          }),
+          geometry: new Polygon({
+            rings: [
+              [
+                [108.22154000401497, 16.070185525486245],
+                [108.22178274393085, 16.070104337457497],
+                [108.2217988371849, 16.07040589282581],
+                [108.22147294878961, 16.070416202402964],
+                [108.22154000401497, 16.070185525486245],
+              ],
+            ],
+          }),
+        });
+        mapView.graphics.add(polygon);
       };
 
       addGraphic();
