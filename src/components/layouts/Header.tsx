@@ -1,5 +1,5 @@
 import { useState } from "react";
-import logo from "./logo.webp";
+import logo from "../../logo.webp";
 function Header() {
   const [isRotate, setIsRotate] = useState(false);
   return (
