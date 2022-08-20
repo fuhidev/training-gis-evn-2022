@@ -18,6 +18,12 @@ const FeatureTableComponent: React.FC<Props> = ({ view, layer }) => {
         view,
         layer,
       });
+
+      view.watch("stationary", (stationary) => {
+        if (!stationary) {
+          featureTable.filterGeometry = view.extent;
+        }
+      });
     }
   }, []);
 
