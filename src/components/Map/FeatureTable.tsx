@@ -1,7 +1,7 @@
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import MapView from "@arcgis/core/views/MapView";
 import FeatureTable from "@arcgis/core/widgets/FeatureTable";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   view: MapView;
@@ -10,6 +10,7 @@ interface Props {
 
 const FeatureTableComponent: React.FC<Props> = ({ view, layer }) => {
   const divRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setOpen] = useState(true);
   useEffect(() => {
     if (divRef.current) {
       const featureTable = new FeatureTable({
@@ -19,8 +20,25 @@ const FeatureTableComponent: React.FC<Props> = ({ view, layer }) => {
       });
     }
   }, []);
+
+  const toggle = () => {
+    setOpen(!isOpen);
+  };
+
   return (
-    <div ref={divRef} className="absolute bottom-0 left-0 h-[300px]"></div>
+    <div className="absolute bottom-0 left-0 w-full ">
+      <div className="flex justify-center">
+        <div
+          className="bg-white px-4 rounded-t opacity-70 hover:opacity-100 cursor-pointer"
+          onClick={toggle}
+        >
+          <i className={"fa-solid fa-chevron-" + (isOpen ? "down" : "up")}></i>
+        </div>
+      </div>
+      <div className={"w-full h-[300px] bg-white " + (isOpen ? "" : "hidden")}>
+        <div ref={divRef}></div>
+      </div>
+    </div>
   );
 };
 
