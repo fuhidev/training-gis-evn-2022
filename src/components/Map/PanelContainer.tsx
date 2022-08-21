@@ -1,6 +1,7 @@
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import MapView from "@arcgis/core/views/MapView";
 import { useState } from "react";
+import DrawingPowerLine from "./DrawingPowerLine";
 import LayerListComponent from "./LayerList";
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 
 const PanelContainer: React.FC<Props> = ({ view, openFeatureTable }) => {
   const [isOpenPanel, setIsOpenPanel] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
   return (
     <>
       <div className="absolute z-[999] right-8 top-5">
@@ -36,7 +38,35 @@ const PanelContainer: React.FC<Props> = ({ view, openFeatureTable }) => {
           <i className="fa-solid fa-xmark"></i>
         </div>
         <div className="flex-1 h-full">
-          <LayerListComponent view={view} openFeatureTable={openFeatureTable} />
+          <div className="flex w-full flex-nowrap mb-4">
+            <div
+              className={
+                "cursor-pointer hover:bg-sky-600 rounded px-4 py-2" +
+                (tabIndex === 0 ? " bg-sky-400" : "")
+              }
+              onClick={() => setTabIndex(0)}
+            >
+              Lớp dữ liệu
+            </div>
+            <div
+              className={
+                "cursor-pointer hover:bg-sky-600 rounded px-4 py-2" +
+                (tabIndex === 1 ? " bg-sky-400" : "")
+              }
+              onClick={() => setTabIndex(1)}
+            >
+              Vẽ đường dây
+            </div>
+          </div>
+          <div className={tabIndex !== 0 ? "hidden" : ""}>
+            <LayerListComponent
+              view={view}
+              openFeatureTable={openFeatureTable}
+            />
+          </div>
+          <div className={tabIndex !== 1 ? "hidden" : ""}>
+            <DrawingPowerLine view={view} />
+          </div>
         </div>
       </div>
     </>

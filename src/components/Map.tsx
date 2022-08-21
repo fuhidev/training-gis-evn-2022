@@ -26,12 +26,14 @@ function MapComponent() {
         const cotDienLayer = new FeatureLayer({
           url: "https://biwase.info/server/rest/services/GISPCDANANG/LuoiDien_HaiChau_TT/FeatureServer/6",
           title: "Cột điện",
+          id: "cotDien",
         });
         mapView.map.add(cotDienLayer);
         setCotDienlayer(cotDienLayer);
         const duongDaylayer = new FeatureLayer({
           url: "https://biwase.info/server/rest/services/GISPCDANANG/LuoiDien_HaiChau_TT/FeatureServer/7",
           title: "Đường dây",
+          id: "duongDay",
         });
         mapView.map.add(duongDaylayer);
         setMapView(mapView);
