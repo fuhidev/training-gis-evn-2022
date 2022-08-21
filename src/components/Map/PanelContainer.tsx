@@ -3,6 +3,7 @@ import MapView from "@arcgis/core/views/MapView";
 import { useState } from "react";
 import DrawingPowerLine from "./DrawingPowerLine";
 import LayerListComponent from "./LayerList";
+import MapChecking from "./MapChecking";
 
 interface Props {
   view: MapView;
@@ -57,6 +58,15 @@ const PanelContainer: React.FC<Props> = ({ view, openFeatureTable }) => {
             >
               Vẽ đường dây
             </div>
+            <div
+              className={
+                "cursor-pointer hover:bg-sky-600 rounded px-4 py-2" +
+                (tabIndex === 2 ? " bg-sky-400" : "")
+              }
+              onClick={() => setTabIndex(2)}
+            >
+              Kiểm tra không gian
+            </div>
           </div>
           <div className={tabIndex !== 0 ? "hidden" : ""}>
             <LayerListComponent
@@ -66,6 +76,9 @@ const PanelContainer: React.FC<Props> = ({ view, openFeatureTable }) => {
           </div>
           <div className={tabIndex !== 1 ? "hidden" : ""}>
             <DrawingPowerLine view={view} />
+          </div>
+          <div className={tabIndex !== 2 ? "hidden" : ""}>
+            <MapChecking view={view} />
           </div>
         </div>
       </div>
